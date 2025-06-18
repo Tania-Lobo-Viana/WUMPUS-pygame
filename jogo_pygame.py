@@ -19,6 +19,10 @@ img_agente = pygame.image.load("imagens/agente.png")
 img_ouro = pygame.image.load("imagens/ouro.png")
 img_poco = pygame.image.load("imagens/poco.png")
 img_wumpus = pygame.image.load("imagens/wumpus.png")
+img_brisa = pygame.image.load("imagens/brisa.png")
+img_fedor = pygame.image.load("imagens/fedor.png")
+img_brilho = pygame.image.load("imagens/brilho.png")
+
 
 som_ouro = pygame.mixer.Sound("sons/ouro.wav")
 som_poco = pygame.mixer.Sound("sons/poco.wav")
@@ -62,9 +66,24 @@ def desenhar_mapa(mundo, agente):
     # Mostrar apenas o agente
     ax, ay = agente.pos
     screen.blit(pygame.transform.scale(img_agente, (100, 100)), (ay*TAMANHO_CELULA, ax*TAMANHO_CELULA))
+    
+
+    percepcoes = obter_percepcoes(mundo, agente.pos)
+    px, py = agente.pos
+    x_pos = py * TAMANHO_CELULA
+    y_pos = px * TAMANHO_CELULA
+    offset = 0
+    if "brisa" in percepcoes:
+        screen.blit(pygame.transform.scale(img_brisa, (30, 30)), (x_pos + offset, y_pos + 70))
+        offset += 35
+    if "fedor" in percepcoes:
+        screen.blit(pygame.transform.scale(img_fedor, (30, 30)), (x_pos + offset, y_pos + 70))
+        offset += 35
+    if "brilho" in percepcoes:
+        screen.blit(pygame.transform.scale(img_brilho, (30, 30)), (x_pos + offset, y_pos + 70))
+
     pygame.display.flip()
-
-
+    
 def main():
     menu_inicial()
 
